@@ -1,9 +1,6 @@
 package com.example.tp2_najoua.configuration;
 
-import com.example.tp2_najoua.entity.Client;
-import com.example.tp2_najoua.entity.ClientOrder;
-import com.example.tp2_najoua.entity.Livre;
-import com.example.tp2_najoua.entity.OrderItem;
+import com.example.tp2_najoua.entity.*;
 import com.example.tp2_najoua.repository.ClientOrderRepository;
 import com.example.tp2_najoua.repository.ClientRepository;
 import com.example.tp2_najoua.repository.LivreRepository;
@@ -67,8 +64,12 @@ public class Tp2Config implements CommandLineRunner {
 
         Client client2 = new Client("Sophie", "Bélanger", "sophie.belanger@example.com", "456 Avenue des Chênes, Montréal, QC");
 
+        Payment payment = new Payment("numeroCarte", "2023-07-12");
+        clientOrder1.setPayment(payment);
 
         client1.ajouterOrderItem(clientOrder1);
+
+
 
         orderItemRepository.save(orderItem1);
         orderItemRepository.save(orderItem2);

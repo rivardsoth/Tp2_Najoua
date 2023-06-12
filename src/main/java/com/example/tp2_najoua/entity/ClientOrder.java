@@ -37,12 +37,10 @@ public class ClientOrder {
                     CascadeType.PERSIST, CascadeType.REFRESH})
     private List<OrderItem> orderItems;
 
-    //mappedBy = bidirection
-    //Si on supprime un clientOrder => on ne supprime pas le payment
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE,
-            CascadeType.PERSIST, CascadeType.REFRESH})
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="payment_id")//colonne de jointure (clé étrangère)
     private Payment payment;
+
 
     public ClientOrder() {
     }

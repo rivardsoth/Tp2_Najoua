@@ -17,21 +17,29 @@ public class Payment {
     private String cardNumber;
     @Basic
     @Column(name = "expiration", nullable = false)
-    private Date expiration;
+    private String expiration;
+
+    public ClientOrder getClientOrder() {
+        return clientOrder;
+    }
+
+    public void setClientOrder(ClientOrder clientOrder) {
+        this.clientOrder = clientOrder;
+    }
 
     //1 paiement => plusieurs clientorder
     //On ne veut pas de suppression en cascade
     //Biderection vers la classe OrderItem (mappedBy)
-    @OneToMany(mappedBy = "payment",//l'attribut dans la classe ClientOrder
-            fetch = FetchType.EAGER,//va chercher directement les clientOrder
-            cascade = {CascadeType.DETACH, CascadeType.MERGE,
-                    CascadeType.PERSIST, CascadeType.REFRESH})
-    private List<ClientOrder> clientOrders;
+    @OneToOne(mappedBy = "payment",//l'attribut dans la classe ClientOrder
+            //pas de cascade pour le delete enlever la suppresion en cascade
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
+    private ClientOrder clientOrder;
+
 
     public Payment() {
     }
 
-    public Payment(String cardNumber, Date expiration) {
+    public Payment(String cardNumber, String expiration) {
         this.cardNumber = cardNumber;
         this.expiration = expiration;
     }
@@ -52,11 +60,11 @@ public class Payment {
         this.cardNumber = cardNumber;
     }
 
-    public Date getExpiration() {
+    public String getExpiration() {
         return expiration;
     }
 
-    public void setExpiration(Date expiration) {
+    public void setExpiration(String expiration) {
         this.expiration = expiration;
     }
 

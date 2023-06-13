@@ -1,10 +1,7 @@
 package com.example.tp2_najoua.configuration;
 
 import com.example.tp2_najoua.entity.*;
-import com.example.tp2_najoua.repository.ClientOrderRepository;
-import com.example.tp2_najoua.repository.ClientRepository;
-import com.example.tp2_najoua.repository.LivreRepository;
-import com.example.tp2_najoua.repository.OrderItemRepository;
+import com.example.tp2_najoua.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -12,14 +9,24 @@ import org.springframework.stereotype.Component;
 @Component //tiens compte de cela
 public class Tp2Config implements CommandLineRunner {
 
-    @Autowired
+
     private ClientRepository clientRepository;
-    @Autowired
+
     private  LivreRepository livreRepository;
-    @Autowired
+
     private ClientOrderRepository clientOrderRepository;
-    @Autowired
+
     private OrderItemRepository orderItemRepository;
+    private PaymentRepository paymentRepository;
+
+    @Autowired
+    public Tp2Config(ClientRepository clientRepository, LivreRepository livreRepository, ClientOrderRepository clientOrderRepository, OrderItemRepository orderItemRepository, PaymentRepository paymentRepository) {
+        this.clientRepository = clientRepository;
+        this.livreRepository = livreRepository;
+        this.clientOrderRepository = clientOrderRepository;
+        this.orderItemRepository = orderItemRepository;
+        this.paymentRepository = paymentRepository;
+    }
 
     @Override
     public void run(String... args) throws Exception {
@@ -27,8 +34,10 @@ public class Tp2Config implements CommandLineRunner {
         //si la bd est vide=> remplis la
         //if (clientRepository.findAll().isEmpty()) {
             //cree la bd des clients
+
         orderItemRepository.deleteAllInBatch();
         clientOrderRepository.deleteAllInBatch();
+        paymentRepository.deleteAllInBatch();
         clientRepository.deleteAllInBatch();
         livreRepository.deleteAllInBatch();
         createClients(clientRepository, livreRepository, clientOrderRepository, orderItemRepository);
@@ -67,7 +76,7 @@ public class Tp2Config implements CommandLineRunner {
         Payment payment = new Payment("numeroCarte", "2023-07-12");
         clientOrder1.setPayment(payment);
 
-        client1.ajouterOrderItem(clientOrder1);
+        client1.ajouterClientOrder(clientOrder1);
 
 
 
@@ -76,8 +85,8 @@ public class Tp2Config implements CommandLineRunner {
         clientOrderRepository.save(clientOrder1);
 
 
-        clientRepository.save(client2);
         clientRepository.save(client1);
+        clientRepository.save(client2);
 
     }
 

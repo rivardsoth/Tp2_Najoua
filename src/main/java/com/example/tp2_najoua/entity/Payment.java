@@ -1,5 +1,8 @@
 package com.example.tp2_najoua.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.sql.Date;
@@ -27,12 +30,13 @@ public class Payment {
         this.clientOrder = clientOrder;
     }
 
-    //1 paiement => plusieurs clientorder
+    //1 paiement => 1 clientorder
     //On ne veut pas de suppression en cascade
-    //Biderection vers la classe OrderItem (mappedBy)
-    @OneToOne(mappedBy = "payment",//l'attribut dans la classe ClientOrder
+    //Biderection vers la classe clientorder (mappedBy)
+    @OneToOne(mappedBy = "payment"/*,//l'attribut dans la classe ClientOrder
             //pas de cascade pour le delete enlever la suppresion en cascade
-            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST})
+            /*cascade = CascadeType.PERSIST*/)
+    @JsonIgnore
     private ClientOrder clientOrder;
 
 

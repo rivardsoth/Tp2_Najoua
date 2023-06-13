@@ -1,11 +1,16 @@
 package com.example.tp2_najoua.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/*@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)*/
 @Entity
 @Table(name = "client")
 public class Client {
@@ -33,8 +38,8 @@ public class Client {
             fetch = FetchType.EAGER,//va chercher directement les clientorder
             cascade = {CascadeType.DETACH, CascadeType.MERGE,
                     CascadeType.PERSIST, CascadeType.REFRESH})
-    @JsonIgnore
     private List<ClientOrder> clientOrders;
+
 
     public Client() {
     }
@@ -44,6 +49,14 @@ public class Client {
         this.lastName = lastName;
         this.email = email;
         this.address = address;
+    }
+
+    public List<ClientOrder> getClientOrders() {
+        return clientOrders;
+    }
+
+    public void setClientOrders(List<ClientOrder> clientOrders) {
+        this.clientOrders = clientOrders;
     }
 
     public int getClientId() {
@@ -101,7 +114,7 @@ public class Client {
      * Ajouter un ClientOrder au client
      * @param tempClientOrder
      */
-    public void ajouterOrderItem(ClientOrder tempClientOrder) {
+    public void ajouterClientOrder(ClientOrder tempClientOrder) {
         if (this.clientOrders == null) {
             clientOrders = new ArrayList<>();
 

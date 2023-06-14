@@ -22,14 +22,6 @@ public class Payment {
     @Column(name = "expiration", nullable = false)
     private String expiration;
 
-    public ClientOrder getClientOrder() {
-        return clientOrder;
-    }
-
-    public void setClientOrder(ClientOrder clientOrder) {
-        this.clientOrder = clientOrder;
-    }
-
     //1 paiement => 1 clientorder
     //On ne veut pas de suppression en cascade
     //Biderection vers la classe clientorder (mappedBy)
@@ -46,6 +38,14 @@ public class Payment {
     public Payment(String cardNumber, String expiration) {
         this.cardNumber = cardNumber;
         this.expiration = expiration;
+    }
+
+    public ClientOrder getClientOrder() {
+        return clientOrder;
+    }
+
+    public void setClientOrder(ClientOrder clientOrder) {
+        this.clientOrder = clientOrder;
     }
 
     public int getPaymentId() {

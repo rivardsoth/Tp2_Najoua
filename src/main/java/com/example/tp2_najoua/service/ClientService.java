@@ -7,4 +7,8 @@ import java.util.List;
 public interface ClientService {
 
     List<Client> findall();
+
+    boolean deleteClientById(int id);
+
+    Client findClientById(int id);
 }

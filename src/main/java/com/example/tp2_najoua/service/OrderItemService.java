@@ -7,4 +7,8 @@ import java.util.List;
 public interface OrderItemService {
 
     List<OrderItem> findall();
+
+    boolean deleteOrderItemById(int id);
+
+    OrderItem findOrderItemById(int id);
 }

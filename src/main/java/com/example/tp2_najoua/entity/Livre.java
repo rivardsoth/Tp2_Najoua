@@ -167,11 +167,4 @@ public class Livre {
                 '}';
     }
 
-    /*public void ajouterLivreDansOrderItem(OrderItem tempOrderItem) {
-        if (orderItems == null) {
-            orderItems = new ArrayList<>();
-        }
-        tempOrderItem.setLivre(this);
-        orderItems.add(tempOrderItem);
-    }*/
 }

@@ -4,6 +4,8 @@ import com.example.tp2_najoua.entity.Client;
 import com.example.tp2_najoua.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
+@Controller
 public class ClientControl {
 
     private ClientService clientService;
@@ -20,9 +22,18 @@ public class ClientControl {
         this.clientService = clientService;
     }
 
-    @GetMapping("/clients") //http://localhost:8080/clients
+    /*@GetMapping("/clients") //http://localhost:8080/clients
     public List<Client> getAllClient() {
         return clientService.findall();
+    }*/
+
+    @GetMapping("/clients") //http://localhost:8080/clients
+    public String getAllClient(Model model) {
+
+        List<Client> entities = clientService.findall();
+        model.addAttribute("entities", entities);
+        return "clients";
+
     }
 
     @GetMapping("/clients/{id}")//http://localhost:8080/instructors/1

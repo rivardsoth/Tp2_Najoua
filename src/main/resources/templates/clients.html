@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hello Page</title>
+</head>
+<body>
+<h1>Entity List</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+        <th>Address</th>
+        <!-- Add more table headers for additional entity properties -->
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Loop through the entities and populate the table rows dynamically -->
+    <tr th:each="entity : ${entities}">
+        <td th:text="${entity.clientId}"></td>
+        <td th:text="${entity.firstName}"></td>
+        <td th:text="${entity.lastName}"></td>
+        <td th:text="${entity.email}"></td>
+        <td th:text="${entity.address}"></td>
+        <!-- Add more table cells for additional entity properties -->
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -2,11 +2,9 @@ package com.example.tp2_najoua.service;
 
 import com.example.tp2_najoua.entity.Client;
 import com.example.tp2_najoua.entity.ClientOrder;
-import com.example.tp2_najoua.entity.OrderItem;
 import com.example.tp2_najoua.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -48,5 +46,11 @@ public class ClientServiceImpl implements ClientService {
     public Client findClientById(int id) {
         Client tempclient = clientRepository.findById(id).get();
         return tempclient;
+    }
+
+    @Override
+    public Client ajouterNouveauClient(Client client) {
+        clientRepository.save(client);
+        return client;
     }
 }

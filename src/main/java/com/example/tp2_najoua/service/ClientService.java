@@ -11,4 +11,6 @@ public interface ClientService {
     boolean deleteClientById(int id);
 
     Client findClientById(int id);
+
+    Client ajouterNouveauClient(Client client);
 }

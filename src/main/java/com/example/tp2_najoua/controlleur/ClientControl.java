@@ -3,13 +3,11 @@ package com.example.tp2_najoua.controlleur;
 import com.example.tp2_najoua.entity.Client;
 import com.example.tp2_najoua.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -53,5 +51,11 @@ public class ClientControl {
             String errorMessage = "Client avec ID " + id + " n'existe pas.";
             return ResponseEntity.badRequest().body(errorMessage);
         }
+    }
+
+    @PostMapping("/clientes")
+    public ResponseEntity<Client> saveInstructor(@RequestBody Client newClient) {
+        Client savedClient = clientService.ajouterNouveauClient(newClient);
+        return new ResponseEntity<>(savedClient, HttpStatus.CREATED);
     }
 }
